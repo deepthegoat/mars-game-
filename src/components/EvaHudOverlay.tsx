@@ -113,13 +113,13 @@ export const EvaHudOverlay: React.FC<EvaHudOverlayProps> = ({
       </div>
 
       {/* Top-Left EVA Mode Exit Controls & Helmet Visor Suit Telemetry */}
-      <div className="fixed top-[84px] sm:top-[80px] left-2.5 sm:left-3.5 pointer-events-auto flex flex-col items-start gap-1.5">
+      <div className="fixed top-[104px] sm:top-[100px] left-3 sm:left-4 pointer-events-auto flex flex-col items-start gap-1.5 z-30">
         <div className="flex flex-wrap items-center gap-1.5">
           <button
             type="button"
             data-testid="exit-eva-btn"
             onClick={onExitToOrbital}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0F172A]/95 hover:bg-[#1E293B] border border-cyan-400/75 text-xs font-mono font-semibold text-cyan-100 shadow-xl cursor-pointer transition-colors focus-visible:outline-2 focus-visible:outline-cyan-300"
+            className="h-[28px] inline-flex items-center gap-1.5 px-2.5 rounded-md bg-[#0F172A]/95 hover:bg-[#1E293B] border border-cyan-400/75 text-xs font-mono font-semibold text-cyan-100 shadow-xl cursor-pointer transition-colors focus-visible:outline-2 focus-visible:outline-cyan-300"
           >
             <LogOut className="w-3.5 h-3.5 text-amber-300 shrink-0" aria-hidden="true" />
             <span>[ESC / Orbital View]</span>
@@ -129,7 +129,7 @@ export const EvaHudOverlay: React.FC<EvaHudOverlayProps> = ({
             type="button"
             data-testid="eva-enter-hab-btn"
             onClick={onEnterHabitat}
-            className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-[#0B1220]/95 hover:bg-[#162B47] border border-slate-600/80 text-xs font-mono font-semibold text-slate-100 shadow-lg cursor-pointer transition-colors focus-visible:outline-2 focus-visible:outline-cyan-300"
+            className="h-[28px] inline-flex items-center gap-1.5 px-2.5 rounded-md bg-[#0B1220]/95 hover:bg-[#162B47] border border-slate-600/80 text-xs font-mono font-semibold text-slate-100 shadow-lg cursor-pointer transition-colors focus-visible:outline-2 focus-visible:outline-cyan-300"
           >
             <Home className="w-3.5 h-3.5 text-cyan-300 shrink-0" aria-hidden="true" />
             <span>Enter Hab</span>
@@ -139,7 +139,7 @@ export const EvaHudOverlay: React.FC<EvaHudOverlayProps> = ({
         {/* Helmet Visor Suit Telemetry Panel */}
         <div
           data-testid="eva-visor-telemetry"
-          className="px-2.5 py-1.5 rounded-lg bg-[#070B14]/88 border border-cyan-400/35 shadow-lg flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-mono"
+          className="h-[28px] px-3 rounded-md bg-[#070B14]/90 border border-cyan-400/40 shadow-lg flex items-center gap-x-3 text-[11px] font-mono whitespace-nowrap"
         >
           <span className="text-[10px] font-bold tracking-wider uppercase text-cyan-300">
             EVA SUIT VISOR
@@ -181,7 +181,7 @@ export const EvaHudOverlay: React.FC<EvaHudOverlayProps> = ({
         {(flareActive || dustSquallActive) && (
           <div
             data-testid="eva-hazard-warning"
-            className={`px-2.5 py-1 rounded-lg border text-[10.5px] font-mono font-bold shadow-lg flex items-center gap-1.5 ${
+            className={`min-h-[26px] px-2.5 py-1 rounded-md border text-[10.5px] font-mono font-bold shadow-lg flex items-center gap-1.5 leading-none ${
               flareActive
                 ? 'bg-[#2A0B14]/94 border-rose-400/80 text-rose-200'
                 : 'bg-[#281508]/94 border-amber-400/80 text-amber-200'
@@ -204,7 +204,7 @@ export const EvaHudOverlay: React.FC<EvaHudOverlayProps> = ({
         <div
           key={statusBanner.id}
           data-testid="eva-action-feedback"
-          className={`fixed top-[84px] left-1/2 -translate-x-1/2 px-3.5 py-1.5 rounded-lg border font-mono text-xs font-bold shadow-xl ${
+          className={`fixed top-[104px] sm:top-[100px] left-1/2 -translate-x-1/2 px-3.5 py-1.5 rounded-lg border font-mono text-xs font-bold shadow-xl ${
             statusBanner.positive
               ? 'bg-[#071F1B]/95 border-emerald-400 text-emerald-200'
               : 'bg-[#290F14]/95 border-rose-400 text-rose-200'
@@ -238,11 +238,12 @@ export const EvaHudOverlay: React.FC<EvaHudOverlayProps> = ({
       </div>
 
       {/* Bottom Controls Hint + Touch / Click Navigation Pad */}
-      <div className="fixed bottom-3 right-3 pointer-events-auto flex flex-col items-end gap-1.5">
-        <div className="px-2.5 py-1 rounded-md bg-[#0B1220]/88 border border-slate-700/80 text-[10px] font-mono text-slate-300">
-          {evaState.pointerLocked
-            ? 'WASD Walk (0.38g) · Mouse Look · [E] Service · ESC Unlock'
-            : 'WASD Walk (0.38g) · Click or Drag to Look · [E] Service'}
+      <div className="fixed bottom-3 right-3 sm:bottom-3.5 sm:right-4 pointer-events-auto flex flex-col items-end gap-1.5 z-30">
+        <div
+          data-testid="bottom-control-legend"
+          className="px-2.5 py-1 rounded-md bg-[#0B1220]/90 border border-slate-700/80 shadow-lg text-[10px] sm:text-[10.5px] font-mono text-slate-200 whitespace-nowrap"
+        >
+          [WASD] Move • [Mouse] Look • [E] {evaState.pointerLocked ? 'Service • [ESC] Unlock' : 'Service • [ESC] Orbital View'}
         </div>
 
         <div

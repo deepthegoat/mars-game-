@@ -1023,6 +1023,8 @@ export default function App() {
       ? 'hud-em-static-m'
       : '';
   const hasUnreadDispatch = !decryptedSols.includes(mission.sol);
+  const isInterior = viewMode === 'interior';
+  const isEvaMode = viewMode === 'eva';
 
   const isPhase1 = mission.opPhase === 'crisis_brief' || mission.opPhase === 'decision_cards';
   const isPhase2Or3 = mission.opPhase === 'operation' || mission.opPhase === 'sol_complete';
@@ -1189,7 +1191,7 @@ export default function App() {
                     disabled={isNightCycle || Boolean(mission.debrief)}
                     onClick={enterInteriorMode}
                     title="Enter Habitat Interior (First-Person Exploration)"
-                    className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[10.5px] font-semibold border cursor-pointer whitespace-nowrap transition-colors bg-[#0F1E33] hover:bg-[#162B47] border-cyan-400/75 text-cyan-100 disabled:opacity-45"
+                    className="h-[26px] inline-flex items-center justify-center gap-1 px-2 rounded-md text-[10.5px] font-semibold border cursor-pointer whitespace-nowrap transition-colors bg-[#0F1E33] hover:bg-[#162B47] border-cyan-400/75 text-cyan-100 disabled:opacity-45"
                   >
                     <span>Enter Hab</span>
                   </button>
@@ -1199,7 +1201,7 @@ export default function App() {
                     disabled={isNightCycle || Boolean(mission.debrief)}
                     onClick={() => enterEvaMode('hud')}
                     title="Step onto Martian Terrain in Exterior EVA First-Person Mode"
-                    className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[10.5px] font-semibold border cursor-pointer whitespace-nowrap transition-colors bg-[#1D1528] hover:bg-[#2B1E3B] border-amber-400/75 text-amber-100 disabled:opacity-45"
+                    className="h-[26px] inline-flex items-center justify-center gap-1 px-2 rounded-md text-[10.5px] font-semibold border cursor-pointer whitespace-nowrap transition-colors bg-[#1D1528] hover:bg-[#2B1E3B] border-amber-400/75 text-amber-100 disabled:opacity-45"
                   >
                     <span>👨‍🚀 EVA Walk</span>
                   </button>
@@ -1213,7 +1215,7 @@ export default function App() {
                   missionAudio.playClick();
                   setDonkiFeedOpen((prev) => !prev);
                 }}
-                className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[10.5px] font-medium border cursor-pointer whitespace-nowrap transition-colors ${
+                className={`h-[26px] inline-flex items-center justify-center gap-1 px-2 rounded-md text-[10.5px] font-semibold border cursor-pointer whitespace-nowrap transition-colors ${
                   donkiFeedOpen
                     ? 'bg-cyan-500/20 border-cyan-400 text-cyan-100'
                     : 'bg-slate-800 hover:bg-slate-700 text-cyan-300 border-slate-700'
@@ -1229,7 +1231,7 @@ export default function App() {
                 type="button"
                 onClick={toggleMute}
                 aria-label={muted ? 'Unmute sound effects' : 'Mute sound effects'}
-                className="p-1 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 cursor-pointer"
+                className="h-[26px] w-[26px] flex items-center justify-center rounded-md bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 cursor-pointer"
               >
                 {muted ? <VolumeX className="w-3 h-3" /> : <Volume2 className="w-3 h-3" />}
               </button>
@@ -1240,7 +1242,7 @@ export default function App() {
                   startMission();
                 }}
                 aria-label="Restart mission"
-                className="p-1 sm:px-1.5 sm:py-0.5 inline-flex items-center gap-1 rounded-md bg-slate-800 hover:bg-slate-700 text-[10.5px] font-medium text-slate-200 border border-slate-700 cursor-pointer"
+                className="h-[26px] inline-flex items-center justify-center gap-1 px-2 rounded-md bg-slate-800 hover:bg-slate-700 text-[10.5px] font-semibold text-slate-200 border border-slate-700 cursor-pointer"
               >
                 <RotateCcw className="w-3 h-3" aria-hidden="true" />
                 <span className="hidden sm:inline">Reset</span>
@@ -1438,7 +1440,7 @@ export default function App() {
       />
 
       {/* First-Person Habitat Interior HUD (Top telemetry bar remains visible above) */}
-      {viewMode === 'interior' && !modalOpen && (
+      {isInterior && !modalOpen && (
         <InteriorHudOverlay
           interiorState={interiorState}
           statusBanner={interiorStatusBanner}
@@ -1456,7 +1458,7 @@ export default function App() {
       )}
 
       {/* Exterior First-Person EVA Helmet Visor HUD */}
-      {viewMode === 'eva' && !modalOpen && (
+      {isEvaMode && !modalOpen && (
         <EvaHudOverlay
           evaState={evaState}
           suitO2Pct={mission.resources.lifeSupportPct}
@@ -1477,6 +1479,7 @@ export default function App() {
           onVirtualInputChange={(input) => viewportRef.current?.setVirtualEvaInput(input)}
         />
       )}
+
 
       {/* Bottom Dock: Optional Earth Audio Dispatch Drawer + Operational Phase Console (Exterior View) */}
       {viewMode === 'exterior' && (

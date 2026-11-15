@@ -67,12 +67,12 @@ export const InteriorHudOverlay: React.FC<InteriorHudOverlayProps> = ({
       </div>
 
       {/* Top-Left Exit Button & Current Zone Readout (below top telemetry bar) */}
-      <div className="fixed top-[84px] sm:top-[80px] left-2.5 sm:left-3.5 pointer-events-auto flex flex-col items-start gap-1.5">
+      <div className="fixed top-[104px] sm:top-[100px] left-3 sm:left-4 pointer-events-auto flex flex-col items-start gap-1.5 z-30">
         <button
           type="button"
           data-testid="exit-interior-btn"
           onClick={onExitInterior}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0F172A]/95 hover:bg-[#1E293B] border border-cyan-400/70 text-xs font-mono font-semibold text-cyan-100 shadow-xl cursor-pointer transition-colors focus-visible:outline-2 focus-visible:outline-cyan-300"
+          className="h-[28px] inline-flex items-center gap-1.5 px-2.5 rounded-md bg-[#0F172A]/95 hover:bg-[#1E293B] border border-cyan-400/70 text-xs font-mono font-semibold text-cyan-100 shadow-xl cursor-pointer transition-colors focus-visible:outline-2 focus-visible:outline-cyan-300"
         >
           <LogOut className="w-3.5 h-3.5 text-amber-300 shrink-0" aria-hidden="true" />
           <span>[ESC / Exit to Exterior View]</span>
@@ -117,7 +117,7 @@ export const InteriorHudOverlay: React.FC<InteriorHudOverlayProps> = ({
         <div
           key={statusBanner.id}
           data-testid="interior-action-feedback"
-          className={`fixed top-[84px] left-1/2 -translate-x-1/2 px-3.5 py-1.5 rounded-lg border font-mono text-xs font-bold shadow-xl ${
+          className={`fixed top-[104px] sm:top-[100px] left-1/2 -translate-x-1/2 px-3.5 py-1.5 rounded-lg border font-mono text-xs font-bold shadow-xl ${
             statusBanner.positive
               ? 'bg-[#071F1B]/95 border-emerald-400 text-emerald-200'
               : 'bg-[#290F14]/95 border-rose-400 text-rose-200'
@@ -151,11 +151,12 @@ export const InteriorHudOverlay: React.FC<InteriorHudOverlayProps> = ({
       </div>
 
       {/* Bottom Controls Hint + Mobile/Click Fallback Navigation Arrows */}
-      <div className="fixed bottom-3 right-3 pointer-events-auto flex flex-col items-end gap-1.5">
-        <div className="px-2.5 py-1 rounded-md bg-[#0B1220]/88 border border-slate-700/80 text-[10px] font-mono text-slate-300">
-          {interiorState.pointerLocked
-            ? 'WASD Move · Mouse Look · [E] Interact · ESC Unlock'
-            : 'WASD Move · Click or Drag to Look · [E] Interact'}
+      <div className="fixed bottom-3 right-3 sm:bottom-3.5 sm:right-4 pointer-events-auto flex flex-col items-end gap-1.5 z-30">
+        <div
+          data-testid="bottom-control-legend"
+          className="px-2.5 py-1 rounded-md bg-[#0B1220]/90 border border-slate-700/80 shadow-lg text-[10px] sm:text-[10.5px] font-mono text-slate-200 whitespace-nowrap"
+        >
+          [WASD] Move • [Mouse] Look • [E] {interiorState.pointerLocked ? 'Interact • [ESC] Unlock' : 'Interact • [ESC] Orbital View'}
         </div>
 
         <div
