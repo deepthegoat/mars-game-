@@ -1106,8 +1106,8 @@ export default function App() {
           }`}
         >
           {/* Row 1: Sol, Operational Phase, Emergency Banner, MEDA Weather & Utility Buttons */}
-          <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-1.5">
-            <div className="flex flex-wrap sm:flex-nowrap items-center gap-x-1 gap-y-0.5 min-w-0">
+          <div className="flex items-center justify-between gap-2 overflow-x-auto pb-0.5 sm:pb-0">
+            <div className="flex items-center gap-x-1.5 gap-y-0.5 min-w-0 flex-nowrap shrink-0">
               <h1 className="text-[11.5px] font-bold tracking-tight text-white whitespace-nowrap">
                 OUTPOST COMMAND
               </h1>
@@ -1180,7 +1180,7 @@ export default function App() {
               </button>
             </div>
 
-            <div className="flex items-center gap-1 shrink-0">
+            <div className="flex items-center gap-1.5 shrink-0 flex-nowrap">
               {viewMode === 'exterior' && (
                 <>
                   <button
